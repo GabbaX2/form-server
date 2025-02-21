@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3080;
 
-
+// Configura CORS per accettare richieste dal frontend deployato
 app.use(cors({
-    origin: 'https://form-front-lac.vercel.app/', 
-    methods: ['GET', 'POST', 'OPTIONS'], 
-    allowedHeaders: ['Content-Type'] 
+    origin: 'https://form-front-lac.vercel.app', // Permetti solo richieste da questo dominio
+    methods: ['GET', 'POST', 'OPTIONS'], // Specifica i metodi consentiti
+    allowedHeaders: ['Content-Type'], // Specifica gli header consentiti
+    credentials: true // Se necessario, abilita le credenziali (cookies, autorizzazioni)
 }));
 
 app.use(bodyParser.json());
