@@ -5,7 +5,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3080;
 
-app.use(cors());
+app.use(cors({
+    origin: 'https://form-front-i7bt.vercel.app' 
+}));
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
