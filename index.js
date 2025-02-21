@@ -5,11 +5,22 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3080;
 
+
 app.use(cors({
-    origin: 'https://form-front-i7bt.vercel.app' 
+    origin: 'https://form-front-i7bt.vercel.app', 
+    methods: ['GET', 'POST', 'OPTIONS'], 
+    allowedHeaders: ['Content-Type'] 
 }));
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Gestisci le richieste OPTIONS per il preflight CORS
+app.options('/utente', (req, res) => {
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.send();
+});
 
 app.get('/', (req, res) => {
     res.send('Hello World');
