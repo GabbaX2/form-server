@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3080;
 
 
 app.use(cors({
-    origin: 'https://form-front-i7bt.vercel.app', 
+    origin: 'https://form-front-lac.vercel.app/', 
     methods: ['GET', 'POST', 'OPTIONS'], 
     allowedHeaders: ['Content-Type'] 
 }));
