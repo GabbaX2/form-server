@@ -28,7 +28,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/utente', (req, res) => {
-    res.send('Ciao utente');
+    res.send('Utente trovato!!');
 });
 
 app.post('/utente', (req, res) => {
