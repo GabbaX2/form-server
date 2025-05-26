@@ -5,23 +5,26 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = process.env.PORT || 3080;
 
-// Configura CORS per accettare richieste dal frontend deployato
-app.use(cors({
-    origin: 'https://form-front-lac.vercel.app', // Permetti solo richieste da questo dominio
-    methods: ['GET', 'POST', 'OPTIONS'], // Specifica i metodi consentiti
-    allowedHeaders: ['Content-Type'], // Specifica gli header consentiti
-    credentials: true // Se necessario, abilita le credenziali (cookies, autorizzazioni)
-}));
+const corsOptions = {
+  origin: [
+    'https://forked-front.vercel.app',
+    'http://localhost:5173' // Aggiungi l'URL di sviluppo se necessario
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+  credentials: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+
+// Gestisci manualmente le richieste OPTIONS per sicurezza
+app.options('*', cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Gestisci le richieste OPTIONS per il preflight CORS
-app.options('/utente', (req, res) => {
-    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.send();
-});
+
 
 app.get('/', (req, res) => {
     res.send('Hello World');
